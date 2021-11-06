@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<title>RUNGETHER</title>
+		<script type="text/javascript" src="js/three.min.js"></script>
+		<script type="text/javascript" src="js/GLTFLoader.js"></script>
+		<script type="text/javascript" src="js/gameTogether.js"></script>
+<link href="style.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="panel">
+			<div class="game-title">
+				<div class="title">Rungether</div>
+			</div>
+			<div class="stat">
+				<label>Score</label>
+				<p id="score">0</p>
+			</div>
+			<table id="controls">
+			  	<tr>
+			    	<td>Up:</td>
+			    	<td>Jump</td>
+			  	</tr>
+			  	<tr>
+			    	<td>Left:</td>
+			    	<td>Left lane switch</td>
+			  	</tr>
+			  	<tr>
+			    	<td>Right:</td>
+			    	<td>Right lane switch</td>
+			  	</tr>
+			  	<tr>
+			    	<td>p:</td>
+			    	<td>Pause</td>
+			  	</tr>
+			</table>
+			<table id="ranks"></table>
+			<div class="animate-flicker" id="variable-content">Press enter to begin</div>
+		</div>
+		<div id="world"></div>
+		</div>
+	</body>
+</html>
