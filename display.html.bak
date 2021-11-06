@@ -10,14 +10,14 @@
 			<h1>
 				<span class="title">RUNGETHER</span>
 			</h1>
-			<br>
+			<br><br>
 			<h2>
 				<span class="byline">PLAY GAME!</span>
 			</h2>
 			<br><br>
 
 			<p>
-				<a href="file:///C:/Users/82102/Desktop/그래픽스/Boxy-Run-master_1106/gameAlone.html">Alone</a>
+				<a href="gameAlone.html">Alone</a>
 				&nbsp;&nbsp;
 				<a href= "file:///C:/Users/82102/Desktop/그래픽스/Boxy-Run-master_1106/gameTogether.html">Together</a>
 			</p>
