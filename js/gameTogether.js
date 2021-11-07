@@ -58,8 +58,8 @@ function World() {
 
    // Scoped variables in this world.
    var element, scene, camera, character, renderer, light,
-      objects, object2, paused, keysAllowed, score, difficulty,
-      treePresenceProb, maxTreeSize, fogDistance, gameOver;
+      objects, objects2, paused, paused2, keysAllowed, score, score2, difficulty,
+      treePresenceProb, maxTreeSize, fogDistance, gameOver, gameOver2;
 
    // Initialize the world.
    init();
@@ -117,7 +117,7 @@ function World() {
       scene.add(ground2);
 
       objects = [];
-
+	  objects2 = [];
       treePresenceProb = 0.2;
       maxTreeSize = 0.5;
 
@@ -127,8 +127,9 @@ function World() {
 
       // The game is paused to begin with and the game is not over.
       gameOver = false;
+	  gameOver2 = false;
       paused = true;
-
+	  paused2 = true;
       // Start receiving feedback from the player.
       var left = 37;
       var up = 38;
@@ -146,21 +147,28 @@ function World() {
       document.addEventListener(
          'keydown',
          function(e) {
-            if (!gameOver) {
+            if (!gameOver || !gameOver2) {
                var key = e.keyCode;
                if (keysAllowed[key] === false) return;
                keysAllowed[key] = false;
-               if (paused && !character1CollisionsDetected() && !character2CollisionsDetected() && key == 13) { //13==enter
+               if (paused && paused2 && !character1CollisionsDetected() && !character2CollisionsDetected() && key == 13) { //13==enter
                   paused = false;
+				  paused2 = false;
                   character.onUnpause();
                   character2.onUnpause();
                   document.getElementById(
                      "variable-content").style.visibility = "hidden";
                   document.getElementById(
                      "controls").style.display = "none";
-               } else {
+                  document.getElementById(
+                     "variable-content2").style.visibility = "hidden";
+                  document.getElementById(
+                     "controls2").style.display = "none";
+               } 
+			   else {
                   if (key == p) {
                      paused = true;
+					 paused2 = true;
                      character.onPause();
                      character2.onPause();
                      document.getElementById(
@@ -168,68 +176,73 @@ function World() {
                      document.getElementById(
                         "variable-content").innerHTML = 
                         "Game is paused. Press enter to resume.";
+					 document.getElementById(
+                        "variable-content2").style.visibility = "visible";
+                     document.getElementById(
+                        "variable-content2").innerHTML = 
+                        "Game is paused. Press enter to resume.";
                   }
-                  if (key == w && !paused) {
+                  if (key == w && !paused ) {
                      character.onUpKeyPressed();
                   }
-                  if (key == a && !paused) {
+                  if (key == a && !paused  ) {
                      character.onLeftKeyPressed();
                   }
-                  if (key == d && !paused) {
+                  if (key == d && !paused  ) {
                      character.onRightKeyPressed();
                   }
-                  if (key == up && !paused) {
+                  if (key == up && !paused2 ) {
                      character2.onUpKeyPressed();
                   }
-                  if (key == left && !paused) {
+                  if (key == left && !paused2 ) {
                      character2.onLeftKeyPressed();
                   }
-                  if (key == right && !paused) {
+                  if (key == right && !paused2 ) {
                      character2.onRightKeyPressed();
                   }
 
                   //camera position setting
-                  if (key == w && paused) {
+                  if (key == w && paused && paused2 ) {
                      character.onWKeyPressed();
                      character2.onWKeyPressed();
                   }
-                  if (key == s && paused) {
+                  if (key == s && paused && paused2 ) {
                      character.onSKeyPressed();
                      character2.onSKeyPressed();
                   }
-                  if (key == a && paused) {
+                  if (key == a && paused && paused2 ) {
                      character.onAKeyPressed();
                      character2.onAKeyPressed();
                   }
-                  if (key == d && paused) {
+                  if (key == d && paused && paused2 ) {
                      character.onDKeyPressed();
                      character2.onDKeyPressed();
                   }
-                  if (key == q && paused) {
+                  if (key == q && paused && paused2 ) {
                      character.onQKeyPressed();
                      character2.onQKeyPressed();
                   }
-                  if (key == ee && paused) {
+                  if (key == ee && paused && paused2 ) {
                      character.onEKeyPressed();
                      character2.onEKeyPressed();
                   }
-                  if (key == 49 && paused) {
+                  if (key == 49 && paused && paused2 ) {
                      character.on1KeyPressed();
                      character2.on1KeyPressed();
                   }
-                  if (key == 50 && paused) {
+                  if (key == 50 && paused && paused2 ) {
                      character.on2KeyPressed();
                      character2.on2KeyPressed();
                   }
-                  if (key == 51 && paused) {
+                  if (key == 51 && paused && paused2 ) {
                      character.on3KeyPressed();
                      character2.on3KeyPressed();
                   }
-                  if (key == 52 && paused) {
+                  if (key == 52 && paused && paused2 ) {
                      character.on4KeyPressed();
                      character2.on4KeyPressed();
                   }
-                  if (key == 53 && paused) {
+                  if (key == 53 && paused && paused2 ) {
                      character.on5KeyPressed();
                      character2.on5KeyPressed();
                   }
@@ -253,8 +266,10 @@ function World() {
 
       // Initialize the scores and difficulty.
       score = 0;
+	  score2 = 0;
       difficulty = 0;
       document.getElementById("score").innerHTML = score;
+      document.getElementById("score2").innerHTML = score2;
 
       // Begin the rendering loop.
       loop();
@@ -266,7 +281,7 @@ function World() {
      */
    function loop() {
       // Update the game.
-      if (!paused) {
+      if (!paused || !paused2 ) {
 
          // Add more trees and increase the difficulty.
          if ((objects[objects.length - 1].mesh.position.z) % 2400 == 0) {
@@ -313,25 +328,38 @@ function World() {
             
             scene.fog.far = fogDistance;
          }
-
-         // Move the trees closer to the character.
-         objects.forEach(function(object) {
-            object.mesh.position.z += 100;
-         });
-
+		
+	     if (!gameOver)
+	     {
+			 character.update();
+			 objects.forEach(function(object) {
+			 object.mesh.position.z += 100;
+			 });	
+	     }
+		 if (!gameOver2)
+	     {
+			 character2.update();
+			 objects2.forEach(function(object) {
+			 object.mesh.position.z += 100;
+			 });	
+	     }
+		 
+		 
          // Remove trees that are outside of the world.
          objects = objects.filter(function(object) {
             return object.mesh.position.z < 0;
          });
-
+		 objects2 = objects2.filter(function(object) {
+            return object.mesh.position.z < 0;
+         });
          // Make the character move according to the controls.
-         character.update();
-         character2.update();
+        
 
          // Check for collisions between the character and objects.
          if (character1CollisionsDetected()) {
             gameOver = true;
-            paused = true;
+			paused = true;
+			
             document.addEventListener(
                  'keydown',
                  function(e) {   
@@ -341,13 +369,21 @@ function World() {
              );
              var variableContent = document.getElementById("variable-content");
              variableContent.style.visibility = "visible";
-             variableContent.innerHTML = 
-                "Game over! User2 WIN !<br>Press enter to try again.";
+             if (gameOver2 == true)
+			 {
+				variableContent.innerHTML = "Press enter to try again !";
+			
+			 }
+			 else{
+				 variableContent.innerHTML = 
+                "Game over! User2 WIN !";
+			 }
          }
 
          if (character2CollisionsDetected()) {
-            gameOver = true;
-            paused = true;
+            gameOver2 = true;
+			paused2 = true;
+			
             document.addEventListener(
                  'keydown',
                  function(e) {   
@@ -355,15 +391,29 @@ function World() {
                      document.location.reload(true);
                  }
              );
-             var variableContent = document.getElementById("variable-content");
+             var variableContent = document.getElementById("variable-content2");
              variableContent.style.visibility = "visible";
-             variableContent.innerHTML = 
-                "Game over! User1 WIN !<br>Press enter to try again.";     
+             if (gameOver == true)
+			 {
+					variableContent.innerHTML = "Press enter to try again !";
+			 }
+			 else{
+				variableContent.innerHTML = 
+                "Game over! User1 WIN !";
+			 }
          }
 
          // Update the scores.
-         score += 10;
-         document.getElementById("score").innerHTML = score;
+		 if (!gameOver)
+		 {
+			score += 10;
+			document.getElementById("score").innerHTML = score;
+		 }
+		 if (!gameOver2)
+		 {
+			 score2 += 10;
+			 document.getElementById("score2").innerHTML = score2;
+		 }
 
       }
 
@@ -404,7 +454,7 @@ function World() {
 				lane -= 3;
 				var tree2 = new Tree(lane * 800, -400, position, scale);
 				lane += 3;
-				objects.push(tree);
+				objects2.push(tree);
 				objects.push(tree2);
 				scene.add(tree.mesh);
 				scene.add(tree2.mesh);
@@ -443,8 +493,8 @@ function World() {
        var charMaxY2 = character2.element.position.y + 320;
        var charMinZ2 = character2.element.position.z - 40;
        var charMaxZ2 = character2.element.position.z + 40;
-       for (var i = 0; i < objects.length; i++) {
-          if (objects[i].collides(charMinX2, charMaxX2, charMinY2, 
+       for (var i = 0; i < objects2.length; i++) {
+          if (objects2[i].collides(charMinX2, charMaxX2, charMinY2, 
                 charMaxY2, charMinZ2, charMaxZ2)) {
             return true;
          }

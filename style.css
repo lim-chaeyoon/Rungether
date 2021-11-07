@@ -15,9 +15,9 @@ html, body {
 
 #world {
   position: absolute;
-  width:75%;
+  width:60%;
   height: 100%;
-  right:0;
+  left:20%;
   overflow: hidden;
 }
 
@@ -26,22 +26,38 @@ html, body {
     top:0;
     left:0;
     padding: 2em 3em;
-    width: 25%;
+    width: 20%;
     box-sizing: border-box;
 }
-
+.panel2 {
+	position:absolute;
+    top:0;
+    right:0%;
+    padding: 2em 3em;
+    width: 20%;
+    box-sizing: border-box;
+}
 .game-title {
     z-index:100;
     position:relative;
     text-align:center;
 }
-
+.game-title2 {
+    z-index:100;
+    position:relative;
+    text-align:center;
+}
 .game-title .title {
     font-family: 'Playfair Display', serif;
     font-weight:700;
-    font-size:3em;
+    font-size:2em;
 }
 
+.game-title2 .title2 {
+    font-family: 'Playfair Display', serif;
+    font-weight:700;
+    font-size:2em;
+}
 .game-title .byline {
     font-family: 'Playfair Display', serif;
     text-transform:uppercase;
@@ -139,7 +155,15 @@ td:nth-child(2) {
     text-align:center;
     line-height:150%;
 }
-
+#variable-content2 {
+    margin-top:2em;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    font-size:1em;
+    font-weight:100;
+    text-align:center;
+    line-height:150%;
+}
 @keyframes flickerAnimation {
   0%   { opacity:1; }
   50%  { opacity:0; }
