@@ -1,9 +1,14 @@
 
 /**
  *
- * BOXY RUN
+ * RUNGETHER
  * ----
- * Simple Temple-Run-esque game, created with love by Wan Fung Chui.
+ * Computer Graphics Term Project
+ * 201735894 최형인 _ llodhigh@gmail.com
+ * 201935046 박수빈 _ wlqkr23_@naver.com
+ * 201935120 임채윤 _ lcu1027@naver.com 
+ * 201935139 채정인 _ ksh06293@naver.com
+ * 
  *
  */
 
@@ -281,10 +286,13 @@ function World() {
      */
    function loop() {
       // Update the game.
-      if (!paused || !paused2 ) {
 
+      if (!paused || !paused2 ) {
          // Add more trees and increase the difficulty.
-         if ((objects[objects.length - 1].mesh.position.z) % 2400 == 0) {
+		 console.log("ob1", objects[objects.length - 1].mesh.position.z);
+		 console.log("ob2", objects2[objects2.length - 1].mesh.position.z);
+         if ((objects[objects.length - 1].mesh.position.z) % 2400 == 0 && !paused) 
+		 {
             difficulty += 1;
             var levelLength = 30;
             if (difficulty % levelLength == 0) {
@@ -324,23 +332,75 @@ function World() {
             } else if (difficulty >= 8 * levelLength && difficulty < 9 * levelLength) {
                fogDistance -= (5000 / levelLength);
             }
+
             createRowOfTrees(-120000, treePresenceProb, 0.5, maxTreeSize);
             
             scene.fog.far = fogDistance;
          }
-		
+		 if(paused){ //if player 1 is dead	
+			if ((objects2[objects2.length - 1].mesh.position.z) % 2400 == 0) 
+			{
+            difficulty += 1;
+            var levelLength = 30;
+            if (difficulty % levelLength == 0) {
+               var level = difficulty / levelLength;
+               switch (level) {
+                  case 1:
+                     treePresenceProb = 0.35;
+                     maxTreeSize = 0.5;
+                     break;
+                  case 2:
+                     treePresenceProb = 0.35;
+                     maxTreeSize = 0.85;
+                     break;
+                  case 3:
+                     treePresenceProb = 0.5;
+                     maxTreeSize = 0.85;
+                     break;
+                  case 4:
+                     treePresenceProb = 0.5;
+                     maxTreeSize = 1.1;
+                     break;
+                  case 5:
+                     treePresenceProb = 0.5;
+                     maxTreeSize = 1.1;
+                     break;
+                  case 6:
+                     treePresenceProb = 0.55;
+                     maxTreeSize = 1.1;
+                     break;
+                  default:
+                     treePresenceProb = 0.55;
+                     maxTreeSize = 1.25;
+               }
+            }
+            if ((difficulty >= 5 * levelLength && difficulty < 6 * levelLength)) {
+               fogDistance -= (25000 / levelLength);
+            } else if (difficulty >= 8 * levelLength && difficulty < 9 * levelLength) {
+               fogDistance -= (5000 / levelLength);
+            }
+
+            createRowOfTrees(-120000, treePresenceProb, 0.5, maxTreeSize);
+            
+            scene.fog.far = fogDistance;
+			}
+		 }
+		 
+
+
+
 	     if (!gameOver)
 	     {
 			 character.update();
 			 objects.forEach(function(object) {
-			 object.mesh.position.z += 100;
+				object.mesh.position.z += 100;
 			 });	
 	     }
 		 if (!gameOver2)
 	     {
 			 character2.update();
 			 objects2.forEach(function(object) {
-			 object.mesh.position.z += 100;
+				object.mesh.position.z += 100;
 			 });	
 	     }
 		 
@@ -360,13 +420,17 @@ function World() {
             gameOver = true;
 			paused = true;
 			
-            document.addEventListener(
+			if (gameOver2 == true)
+			{
+				document.addEventListener(
                  'keydown',
                  function(e) {   
-                    if (e.keyCode == 13)
-                     document.location.reload(true);
-                 }
-             );
+					if (e.keyCode == 13)
+                    document.location.reload(true);
+					}	
+				);
+			}
+            
              var variableContent = document.getElementById("variable-content");
              variableContent.style.visibility = "visible";
              if (gameOver2 == true)
@@ -383,14 +447,17 @@ function World() {
          if (character2CollisionsDetected()) {
             gameOver2 = true;
 			paused2 = true;
-			
-            document.addEventListener(
+			if (gameOver == true)
+			{
+				document.addEventListener(
                  'keydown',
                  function(e) {   
                     if (e.keyCode == 13)
-                     document.location.reload(true);
-                 }
-             );
+                    document.location.reload(true);
+					}
+				);
+			}
+            
              var variableContent = document.getElementById("variable-content2");
              variableContent.style.visibility = "visible";
              if (gameOver == true)
@@ -450,15 +517,17 @@ function World() {
          var randomNumber = Math.random();
          if (randomNumber < probability) {
          		var scale = minScale + (maxScale - minScale) * Math.random();
-				var tree = new Tree(lane * 700, -400, position, scale);
+				var tree = new Tree(lane * 700, -400, position, scale); // right tree
 				lane -= 3;
-				var tree2 = new Tree(lane * 800, -400, position, scale);
+				var tree2 = new Tree(lane * 800, -400, position, scale); //left tree
 				lane += 3;
+				//console.log("objects", objects.length)
+				//console.log("objects2", objects2.length)
 				objects2.push(tree);
 				objects.push(tree2);
 				scene.add(tree.mesh);
 				scene.add(tree2.mesh);
-
+			    console.log("lane", lane);
          }
       }
    }
@@ -758,6 +827,61 @@ function Character() {
          self.jumpStartTime += pauseDuration;
       }
    }
+   this.onWKeyPressed = function() {
+      cameraY += 200;
+   };
+
+   this.onSKeyPressed = function() {
+      cameraY -= 200;
+   };
+
+   this.onAKeyPressed = function() {
+      cameraX -= 200;
+   };
+
+   this.onDKeyPressed = function() {
+      cameraX += 200;
+   };
+
+   this.onQKeyPressed = function() {
+      cameraZ += 200;
+   };
+
+   this.onEKeyPressed = function() {
+      cameraZ -= 200;
+   };
+
+   this.on1KeyPressed = function() {
+      cameraX = -1200;
+      cameraY = 500;
+      cameraZ = -1500;
+
+   };
+
+   this.on2KeyPressed = function() {
+      cameraX = -1000;
+      cameraY = 3000;
+      cameraZ = 3000;   
+   };
+
+   this.on3KeyPressed = function() {
+      cameraX = -5000;
+      cameraY = 3000;
+      cameraZ = 3000;      
+   };
+
+   this.on4KeyPressed = function() {
+      cameraX = 2500;
+      cameraY = 3000;
+      cameraZ = 3000;   
+   };
+
+   this.on5KeyPressed = function() {
+      cameraX = -1100;
+      cameraY = 1500;
+      cameraZ = -1000;      
+   };
+
 
 }
 
