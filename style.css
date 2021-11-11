@@ -28,6 +28,7 @@ html, body {
     padding: 2em 3em;
     width: 20%;
     box-sizing: border-box;
+	color:white;
 }
 .panel2 {
 	position:absolute;
@@ -77,26 +78,28 @@ a {
 
 a:link {
   font-family: 'Playfair Display', serif;
-  color: black;
+  color: white;
   text-decoration: none;
+  font-size:1.5em;
+
 }
 
 a:visited {
   font-family: 'Playfair Display', serif;
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
 a:hover {
   font-family: 'Playfair Display', serif;
-  color: black;
-  text-decoration: underline;
+  color: pink;
+  text-decoration: none;
   font-size:2em;
 }
 
 a:active {
   font-family: 'Playfair Display', serif;
-  color: black;
+  color: white;
 }
 
 

@@ -115,6 +115,9 @@ function World() {
 		});
 		
 
+
+		
+
 		var tree;
 		objects = [];
 		treePresenceProb = 0.2;

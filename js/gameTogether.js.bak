@@ -20,7 +20,7 @@ var Colors = {
    blue: 0x1560bd,
    white: 0xd8d0d1,
    black: 0x000000,
-   brown: 0x654321,
+   brown: 0xffcba4,
    peach: 0xffdab9,
    yellow: 0xffff00,
    olive: 0x556b2f,
