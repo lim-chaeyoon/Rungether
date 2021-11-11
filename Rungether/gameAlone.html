@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<title>RUNGETHER</title>
+		<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700" rel="stylesheet">
+		<script type="text/javascript" src="js/three.min.js"></script>
+		<script type="text/javascript" src="js/GLTFLoader.js"></script>		
+		<script type="text/javascript" src="js/OrbitControls.js"></script>	
+        <script type="text/javascript" src="js/gameAlone.js"></script>
+		<link href="style.css" rel="stylesheet">
+	</head>
+	<style>
+        body {
+            background-image: url('background.jpg');
+            background-size: cover;
+        }
+	</style>
+	<body>
+		<div class="panel">
+
+            <audio autoplay
+                   loop
+                   src="audio/chasing-victory-main-9448.mp3"
+                   type="audio/mpeg"></audio>
+
+			<div class="game-title">
+				<div class="title">RUNGETHER</div>
+			</div>
+			<div class="stat">
+				<label>Score</label>
+				<p id="score">0</p>
+			</div>
+			<table id="controls">
+                <tr>
+                    <td><font color="white">Up:</font></td>
+                    <td><font color="white">Jump</font></td>
+                </tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+                <tr>
+                    <td><font color="white">Left:</font></td>
+                    <td><font color="white">Left lane switch</font></td>
+                </tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+                    <td><font color="white">Right:</font></td>
+                    <td><font color="white">Right lane switch</font></td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+                <tr>
+                    <td><font color="white">P:</font></td>
+                    <td><font color="white">Pause</font></td>
+                </tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+                <tr>
+                    <td><font color="white">1-4:</font></td>
+                    <td><font color="white">Change view</font></td>
+                </tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+                <tr>
+                    <td><font color="white">5:</font></td>
+                    <td><font color="white">Default view</font></td>
+                </tr>
+				</table>
+			<div class="animate-flicker" id="variable-content">Press enter to begin</div>
+		</div>
+		<div id="world"></div>
+			
+		</div>
+	</body>
+</html>

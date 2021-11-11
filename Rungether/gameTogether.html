@@ -1,0 +1,133 @@
+<html>
+<head>
+    <title>RUNGETHER</title>
+    <script type="text/javascript" src="js/three.min.js"></script>
+    <script type="text/javascript" src="js/GLTFLoader.js"></script>
+    <script type="text/javascript" src="js/gameTogether.js"></script>
+    <link href="style.css" rel="stylesheet">
+</head>
+<style>
+
+    body {
+        background-image: url('background.jpg');
+        background-size: cover;
+    }
+</style>
+<body>
+    <div class="panel">
+
+        <audio autoplay
+               loop
+               src="audio/chasing-victory-main-9448.mp3"
+               type="audio/mpeg"></audio>
+
+        <div class="game-title">
+            <div class="title">RUNGETHER</div>
+        </div>
+        <div class="stat">
+            <label>Score</label>
+            <p id="score">0</p>
+        </div>
+			<table id="controls">
+                <tr>
+                    <td><font color="white">W:</font></td>
+                    <td><font color="white">Jump</font></td>
+                </tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+                <tr>
+                    <td><font color="white">S:</font></td>
+                    <td><font color="white">Left lane switch</font></td>
+                </tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+                    <td><font color="white">D:</font></td>
+                    <td><font color="white">Right lane switch</font></td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+                <tr>
+                    <td><font color="white">P:</font></td>
+                    <td><font color="white">Pause</font></td>
+                </tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+                <tr>
+                    <td><font color="white">1-4:</font></td>
+                    <td><font color="white">Change view</font></td>
+                </tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+                <tr>
+                    <td><font color="white">5:</font></td>
+                    <td><font color="white">Default view</font></td>
+                </tr>
+				</table>
+        <div class="animate-flicker" id="variable-content">Press enter to begin</div>
+    </div>
+    <div id="world"></div>
+    </div>
+
+    <div class="panel2">
+        <div class="game-title2">
+            <div class="title2">RUNGETHER</div>
+        </div>
+        <div class="stat">
+            <label>Score</label>
+            <p id="score2">0</p>
+        </div>
+			<table id="controls2">
+                <tr>
+                    <td>Up:</td>
+                    <td>Jump</td>
+                </tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+                <tr>
+                    <td>Left:</td>
+                    <td>Left lane switch</td>
+                </tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+                    <td>Right:</td>
+                    <td>Right lane switch</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+                <tr>
+                    <td>P:</td>
+                    <td>Pause</td>
+                </tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+                <tr>
+                    <td>1-4:</td>
+                    <td>Change view</td>
+                </tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+                <tr>
+                    <td>5:</td>
+                    <td>Default view</td>
+                </tr>
+				</table>
+        <div class="animate-flicker" id="variable-content2">Press enter to begin</div>
+    </div>
+    <div id="world2"></div>
+    </div>
+</body>
+</html>
