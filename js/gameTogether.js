@@ -132,8 +132,8 @@ function World() {
 		const loader = new THREE.GLTFLoader();
 		loader.load('./model2/scene.gltf', function(gltf){
 		  running = gltf.scene.children[0];
-		  running.scale.set(600,-800,500);
-		  running.position.set(-2500,0,-4000);
+		  running.scale.set(4.5,-4.5,4.5);
+		  running.position.set(-1800,0,-4000);
 		  scene.add(gltf.scene);
 		  runningCharacter = running;
 		  mixer = new THREE.AnimationMixer( gltf.scene );
@@ -146,8 +146,8 @@ function World() {
 		const loader2 = new THREE.GLTFLoader();
 		loader.load('./model/scene.gltf', function(gltf){
 		  running2 = gltf.scene.children[0];
-		  running2.scale.set(600,-800,500);
-		  running2.position.set(0,0,-4000);
+		  running2.scale.set(4.5,-4.5,4.5);
+		  running2.position.set(-300,0,-4000);
 		  scene.add(gltf.scene);
 		  runningCharacter2 = running2;
 		  mixer2 = new THREE.AnimationMixer( gltf.scene );
@@ -156,7 +156,7 @@ function World() {
 		  }, undefined, function (error) {
 			console.error(error);
 		});
-	  
+
       objects = [];
 	  objects2 = [];
       treePresenceProb = 0.2;
@@ -805,7 +805,7 @@ function rCharacter() {
             var offset = self.currentLane * 800 - runningCharacter.position.x;
             if (offset > -800) {
                self.currentLane -= 1;
-               runningCharacter.position.x = self.currentLane * 800;
+               runningCharacter.position.x = self.currentLane * 700;
                self.isSwitchingLeft = false;
             }
 
@@ -815,7 +815,7 @@ function rCharacter() {
             var offset = runningCharacter.position.x - self.currentLane * 800;
             if (offset > 800) {
                self.currentLane += 1;
-               runningCharacter.position.x = self.currentLane * 800;
+               runningCharacter.position.x = self.currentLane * 700;
                self.isSwitchingRight = false;
             }
          }
@@ -1007,7 +1007,7 @@ function rCharacter2() {
             var offset = self.currentLane * 800 - runningCharacter2.position.x;
             if (offset > -800) {
                self.currentLane -= 1;
-               runningCharacter2.position.x = self.currentLane * 800;
+               runningCharacter2.position.x = self.currentLane * 700;
                self.isSwitchingLeft = false;
             }
 
@@ -1017,7 +1017,7 @@ function rCharacter2() {
             var offset = runningCharacter2.position.x - self.currentLane * 800;
             if (offset > 800) {
                self.currentLane += 1;
-               runningCharacter2.position.x = self.currentLane * 800;
+               runningCharacter2.position.x = self.currentLane * 700;
                self.isSwitchingRight = false;
             }
          }

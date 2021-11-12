@@ -13,8 +13,10 @@ function World(element) {
 	// Scoped variables in this world.
 	var scene, camera, character, renderer, light, shadowLight;
 	var runningCharacter;
+	var runningCharacter2;
 	var clock = new THREE.Clock();
 	var mixer = new THREE.AnimationMixer(scene);
+	var mixer2 = new THREE.AnimationMixer(scene);
 	// Initialize the world.
 	init();
 	var i =0;
@@ -49,7 +51,7 @@ function World(element) {
 		// near plane, and far plane.
 		camera = new THREE.PerspectiveCamera(
 			60, window.innerWidth / window.innerHeight, 1, 2000);
-		camera.position.set(0, 400, 800);
+		camera.position.set(0, 400, 900);
 		camera.lookAt(new THREE.Vector3(0, 150, 0));
 		window.camera = camera;
 
@@ -62,8 +64,8 @@ function World(element) {
 		const loader = new THREE.GLTFLoader();
 		loader.load('./model/scene.gltf', function(gltf){
 		  running = gltf.scene.children[0];
-		  running.scale.set(300,-400,250);
-		  running.position.set(0,0,-300);
+		  running.scale.set(4,5,4);
+		  running.position.set(0,-400,-300);
 		  scene.add(gltf.scene);
 		  runningCharacter = running;
 		  mixer = new THREE.AnimationMixer( gltf.scene );
@@ -72,6 +74,21 @@ function World(element) {
 		  }, undefined, function (error) {
 			console.error(error);
 		});
+
+		const loader2 = new THREE.GLTFLoader();
+		loader2.load('./model2/scene.gltf', function(gltf){
+		  running2 = gltf.scene.children[0];
+		  running2.scale.set(4,5,4);
+		  running2.position.set(-1000,-400,-300);
+		  scene.add(gltf.scene);
+		  runningCharacter2 = running2;
+		  mixer2 = new THREE.AnimationMixer( gltf.scene );
+		  var action = mixer2.clipAction( gltf.animations[ 0 ] );
+		  action.play();
+		  }, undefined, function (error) {
+			console.error(error);
+		});
+
 
 		// Begin the rendering loop.
 		loop();
@@ -84,7 +101,9 @@ function World(element) {
 	function loop() {
 		var delta = clock.getDelta();
 		if ( mixer ) mixer.update( delta );
+		if ( mixer2 ) mixer2.update( delta );
 		if (runningCharacter) runningCharacter.rotation.z += 0.01;
+		if (runningCharacter2) runningCharacter2.rotation.z += 0.01;
 		renderer.render(scene, camera);
 		requestAnimationFrame(loop);
 	}
